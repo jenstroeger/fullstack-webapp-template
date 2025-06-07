@@ -1,0 +1,52 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_install_hook_types: [pre-commit, commit-msg, pre-push]
+default_stages: [pre-commit]
+minimum_pre_commit_version: 4.0.0
+
+repos:
+
+# These meta hooks check the pre-commit configuration itself.
+- repo: meta
+  hooks:
+  - id: check-hooks-apply
+  - id: check-useless-excludes
+
+# Commitizen enforces semantic and conventional commit messages.
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v4.8.2
+  hooks:
+  - id: commitizen
+    name: Check conventional commit message
+    stages: [commit-msg]
+
+# Enable a whole bunch of useful helper hooks, too.
+# See https://pre-commit.com/hooks.html for more hooks.
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0
+  hooks:
+  - id: check-case-conflict
+  - id: check-merge-conflict
+  - id: check-added-large-files
+    stages: [pre-commit]
+    args: [--maxkb=500]
+  - id: end-of-file-fixer
+    stages: [pre-commit]
+  - id: trailing-whitespace
+    args: [--markdown-linebreak-ext=md]
+    stages: [pre-commit]
+  - id: detect-private-key
+  - id: detect-aws-credentials
+    args: [--allow-missing-credentials]
+  - id: check-yaml
+  - id: check-toml
+
+# Check and prettify the configuration files.
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.14.0
+  hooks:
+  - id: pretty-format-yaml
+    args: [--autofix]
+  # Commenting this out because https://github.com/pappasam/toml-sort/issues/11
+  # - id: pretty-format-toml
+  #   args: [--autofix]

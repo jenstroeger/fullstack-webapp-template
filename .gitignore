@@ -1,0 +1,12 @@
+# C extensions
+*.so
+
+# Translations
+*.mo
+*.pot
+
+# macOS stuff
+.DS_Store
+
+# vim swap files
+.*.swp
