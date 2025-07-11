@@ -1,0 +1,44 @@
+services:
+
+  # https://hub.docker.com/_/postgres/
+  postgres-db:
+    image: fullstack-template-backend-pg:0.0.0
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: template_db
+    healthcheck:
+      test: pg_isready --username postgres --dbname template_db
+      interval: 1s
+      timeout: 5s
+      retries: 10
+
+  # https://hub.docker.com/r/postgrest/postgrest
+  postgrest:
+    image: postgrest/postgrest:v13.0.4@sha256:a312f4b2e48530a01fc26f5310d547d6c26d087858360e164522e415723a7732
+    ports:
+    - 3000:3000
+    environment:
+      # https://docs.postgrest.org/en/stable/references/configuration.html
+      PGRST_DB_URI: postgres://postgres:postgres@postgres-db:5432/template_db
+      PGRST_OPENAPI_SERVER_PROXY_URI: http://localhost:3001
+      PGRST_DB_ANON_ROLE: anonymous
+      PGRST_DB_SCHEMAS: api
+      PGRST_JWT_SECRET: cLrngXnioRTsqo2vBKqiEPCN467PrrRl
+      # PGRST_OPENAPI_SERVER_PROXY_URI:
+      PGRST_OPENAPI_MODE: ignore-privileges
+      PGRST_OPENAPI_SECURITY_ACTIVE: true
+      # PGRST_ADMIN_SERVER_HOST: postgres-db
+      # PGRST_ADMIN_SERVER_PORT: 3033
+    healthcheck:
+      # https://docs.postgrest.org/en/stable/references/admin_server.html#health-check
+      # https://github.com/PostgREST/postgrest/discussions/3854
+      disable: true
+
+  # https://hub.docker.com/r/swaggerapi/swagger-ui/
+  swagger-ui:
+    image: swaggerapi/swagger-ui:v5.20.2@sha256:666e61e5089643b7d634399ec6e82563e7f09a5367c899981bf63e44631ea364
+    ports:
+    - 3001:8080
+    environment:
+    - API_URL=http://localhost:3000/

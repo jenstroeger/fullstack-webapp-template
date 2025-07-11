@@ -5,6 +5,34 @@
 *.mo
 *.pot
 
+# Python byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Distribution / packaging
+.coverage
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+include/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
 # macOS stuff
 .DS_Store
 

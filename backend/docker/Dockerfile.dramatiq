@@ -1,0 +1,12 @@
+FROM python:3.13-alpine3.21@sha256:452682e4648deafe431ad2f2391d726d7c52f0ff291be8bd4074b10379bb89ff
+
+# Copy over the distribution files in Simple Repository (PEP 503) format.
+RUN mkdir -p /tmp/dist/simple-index/
+COPY dist/simple-index/ /tmp/dist/simple-index/
+COPY dist/template_jobs-*-requirements.txt /tmp/dist/requirements.txt
+
+# Install the server package and its dependencies.
+RUN python -m pip install --extra-index-url file:///tmp/dist/simple-index/ --require-hashes --requirement /tmp/dist/requirements.txt
+
+# Entrypoint to the container starts up Dramatiq consumers.
+ENTRYPOINT dramatiq --processes ${DRAMATIQ_PROCESSES} --threads ${DRAMATIQ_THREADS} --verbose template_jobs.broker
