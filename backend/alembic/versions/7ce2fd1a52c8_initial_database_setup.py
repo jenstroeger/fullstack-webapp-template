@@ -29,7 +29,11 @@ def upgrade() -> None:
 
     # Make sure that functions can be executed only by those roles we allow to excute.
     # Thus, we first revoke all privileges and then add them incrementally back as needed.
-    # See also: https://docs.postgrest.org/en/v12/explanations/db_authz.html#functions
+    # See also: https://docs.postgrest.org/en/stable/explanations/db_authz.html#functions
+    # A word of warning from @steve-chavez of PostgREST: if you have another role that
+    # creates functions (like `functions_admin`) then the above won't apply for it. The
+    # `alter default privileges` above really is `alter default privileges for role postgres`
+    # -- will only affect objects created by the `postgres` role.
     op.execute(sa.text("alter default privileges revoke execute on functions from public"))
 
     # We make use of these extensions:
@@ -147,7 +151,7 @@ def upgrade() -> None:
             create policy user_email_policy on auth.user to anonymous, apiuser
                 using (
                     current_role = 'anonymous'
-                    or email = current_setting('request.jwt.claims', true)::json->>'email'
+                    or email = (select current_setting('request.jwt.claims', true)::json->>'email')
                 );
             """
         )
@@ -223,7 +227,7 @@ def upgrade() -> None:
                     or user_id = (
                         select id
                             from auth.user
-                            where email = current_setting('request.jwt.claims', true)::json->>'email'
+                            where email = (select current_setting('request.jwt.claims', true)::json->>'email')
                     )
                 );
             """
