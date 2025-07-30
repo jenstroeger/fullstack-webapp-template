@@ -13,9 +13,23 @@ The following tools should be available on your machine to get started:
 - [commitizen](https://commitizen-tools.github.io/commitizen/) manages automatic version bumps for _semantic versioning_ based on the _conventional commit messages_ in this repository.
 - [Docker](https://www.docker.com/) to build and deploy application containers.
 
+## Quick start
+
+After checking out this repository the following steps should stand up the entire stack locally on your machine:
+
+```
+make init
+. backend/.venv/bin/activate
+make setup
+make build
+make compose-up
+```
+
+Now navigate to [localhost:3001](http://localhost:3001/) to read the interactive Swagger documentation for the API…
+
 ## Architecture
 
-There are three folders in this repository:
+There are three main componenst in this repository, structured into three directories:
 
 - **Frontend**: TBD. For more details see [here](frontend/README.md).
 - **Backend**: the backend is composed of a [PostgREST](https://github.com/PostgREST/postgrest) web server, a message queue based on Postgres, and asynchronous workers implemented in Python using the [Dramatiq](https://github.com/Bogdanp/dramatiq) framework. For more details see [here](backend/README.md).
