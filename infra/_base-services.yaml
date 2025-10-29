@@ -15,7 +15,7 @@ services:
 
   # https://hub.docker.com/r/postgrest/postgrest
   postgrest:
-    image: postgrest/postgrest:v13.0.4@sha256:a312f4b2e48530a01fc26f5310d547d6c26d087858360e164522e415723a7732
+    image: postgrest/postgrest:v14.0@sha256:f8176256ad55a794a61ee6d76d00121635fac4d63bb3d51594e5ed6790f91c72
     ports:
     - 3000:3000
     environment:
@@ -37,7 +37,7 @@ services:
 
   # https://hub.docker.com/r/swaggerapi/swagger-ui/
   swagger-ui:
-    image: swaggerapi/swagger-ui:v5.20.2@sha256:666e61e5089643b7d634399ec6e82563e7f09a5367c899981bf63e44631ea364
+    image: swaggerapi/swagger-ui:v5.29.5@sha256:be10a20c795c09059cb1024a15b9649a08b949e9604c7fc316d9a88fa7eacdcd
     ports:
     - 3001:8080
     environment:
