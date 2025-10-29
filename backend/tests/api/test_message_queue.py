@@ -74,7 +74,7 @@ def test_job(bearer: str) -> None:
         time.sleep(0.5)
 
     else:
-        pytest.fail("Job did not produce a resul before timeout!")
+        pytest.fail("Job did not produce a result before timeout!")
 
 
 # TODO multiple users pushing jobs, can see only their own
