@@ -144,11 +144,11 @@ requirements.txt:
 build: dist simple-index
 build-docker: docker-image-pg docker-image-alembic docker-image-dramatiq
 docker-image-pg:
-	docker build --tag fullstack-template-backend-pg:$(PACKAGE_VERSION) --file docker/Dockerfile.pg .
+	docker build --progress plain --tag fullstack-template-backend-pg:$(PACKAGE_VERSION) --file docker/Dockerfile.pg .
 docker-image-alembic:
-	docker build --tag fullstack-template-backend-alembic:$(PACKAGE_VERSION) --file docker/Dockerfile.alembic .
+	docker build --progress plain --tag fullstack-template-backend-alembic:$(PACKAGE_VERSION) --file docker/Dockerfile.alembic .
 docker-image-dramatiq:
-	docker build --tag fullstack-template-backend-dramatiq:$(PACKAGE_VERSION) --file docker/Dockerfile.dramatiq .
+	docker build --progress plain --tag fullstack-template-backend-dramatiq:$(PACKAGE_VERSION) --file docker/Dockerfile.dramatiq .
 
 
 .PHONY: docs
