@@ -1,0 +1,41 @@
+services:
+
+  # https://hub.docker.com/_/postgres/
+  postgres-db:
+    extends:
+      file: _base-services.yaml
+      service: postgres-db
+    ports:
+    - 5432:5432
+    command: [postgres, -c, log_statement=all]
+
+  # https://alembic.sqlalchemy.org/
+  alembic:
+    image: fullstack-template-backend-alembic:0.0.0
+    volumes:
+    - ../backend/alembic/versions:/alembic/alembic/versions:ro
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
+  # https://hub.docker.com/r/postgrest/postgrest
+  postgrest:
+    extends:
+      file: _base-services.yaml
+      service: postgrest
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      alembic:
+        condition: service_completed_successfully
+
+  # https://hub.docker.com/r/swaggerapi/swagger-ui/
+  swagger-ui:
+    extends:
+      file: _base-services.yaml
+      service: swagger-ui
+    depends_on:  # Should depend on postgrest.
+      postgres-db:
+        condition: service_healthy
+      alembic:
+        condition: service_completed_successfully

@@ -1,0 +1,26 @@
+# https://hub.docker.com/_/alpine
+FROM alpine:3.22.2@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412 AS build
+
+# https://pkgs.alpinelinux.org/packages
+RUN apk update && \
+  apk add git curl gcc openssl make && \
+  apk add postgresql17-dev file-dev libpq-dev
+
+# https://github.com/michelp/pgjwt
+RUN cd /tmp && \
+  git clone --branch master --depth 1 https://github.com/michelp/pgjwt.git && \
+  cd pgjwt && make install
+
+# https://github.com/nmandery/pg_byteamagic
+RUN cd /tmp && \
+  git clone --branch master --depth 1 https://github.com/nmandery/pg_byteamagic.git && \
+  cd pg_byteamagic && make install
+
+# https://hub.docker.com/_/postgres
+FROM postgres:17.6-alpine3.22@sha256:ef257d85f76e48da1c64832459b59fcaba1a4dac97bf5d7450c77753542eee94
+
+RUN apk update && \
+  apk add libmagic
+
+COPY --from=build /usr/share/postgresql17/extension/byteamagic* /usr/share/postgresql17/extension/pgflake* /usr/share/postgresql17/extension/pgjwt* /usr/local/share/postgresql/extension/
+COPY --from=build /usr/lib/postgresql17/byteamagic* /usr/lib/postgresql17/pgflake* /usr/lib/postgresql17/bitcode /usr/local/lib/postgresql/

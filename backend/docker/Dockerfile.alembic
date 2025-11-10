@@ -1,0 +1,14 @@
+# https://hub.docker.com/_/python/
+FROM python:3.13-alpine3.22@sha256:e5fa639e49b85986c4481e28faa2564b45aa8021413f31026c3856e5911618b1
+
+# Copy over the migrations and configuration.
+RUN mkdir -p /alembic/alembic
+COPY alembic/ /alembic/alembic/
+COPY alembic.ini /alembic/
+COPY alembic-requirements.txt /alembic/
+
+# Install Alembic and its dependencies.
+RUN python -m pip install --require-hashes --requirement /alembic/alembic-requirements.txt
+
+# Entrypoint to the container is running Alembic and quitting.
+ENTRYPOINT ["python", "-m", "alembic", "-c", "/alembic/alembic.ini", "upgrade", "head"]

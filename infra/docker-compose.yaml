@@ -1,0 +1,50 @@
+services:
+
+  # https://hub.docker.com/_/postgres/
+  postgres-db:
+    extends:
+      file: _base-services.yaml
+      service: postgres-db
+
+  # https://alembic.sqlalchemy.org/
+  alembic:
+    image: fullstack-template-backend-alembic:0.0.0
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+
+  # https://hub.docker.com/r/postgrest/postgrest
+  postgrest:
+    extends:
+      file: _base-services.yaml
+      service: postgrest
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      alembic:
+        condition: service_completed_successfully
+
+  # https://hub.docker.com/r/swaggerapi/swagger-ui/
+  swagger-ui:
+    extends:
+      file: _base-services.yaml
+      service: swagger-ui
+    depends_on:  # Should depend on postgrest.
+      postgres-db:
+        condition: service_healthy
+      alembic:
+        condition: service_completed_successfully
+
+  # https://dramatiq.io/
+  # https://gitlab.com/dalibo/dramatiq-pg
+  dramatiq:
+    image: fullstack-template-backend-dramatiq:0.0.0
+    environment:
+      DRAMATIQ_SQLA_URL: postgresql://dramatiq:dramatiq@postgres-db:5432/template_db
+      DRAMATIQ_PROCESSES: 2
+      DRAMATIQ_THREADS: 2
+    depends_on:  # Should depend on postgrest.
+      postgres-db:
+        condition: service_healthy
+      alembic:
+        condition: service_completed_successfully
