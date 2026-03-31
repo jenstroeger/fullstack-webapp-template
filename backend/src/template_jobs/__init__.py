@@ -1,6 +1,6 @@
 """The Template Server."""
 
-# Copyright (c) 2025-2025
+# Copyright (c) 2025-2026
 # This code is licensed under MIT license, see LICENSE.md for details.
 
 # The version of this package. There's no comprehensive, official list of other
