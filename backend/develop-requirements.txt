@@ -23,7 +23,7 @@ types-requests ==2.33.*
 # Plugins for pytest. Note that the `custom_exit_code` plugin may currently be unmaintained.
 pytest-cases ==3.10.1
 pytest-custom_exit_code ==0.3.0
-pytest-cov ==6.1.1  # Uses: coverage[toml] >=7.5
+pytest-cov ==7.1.0  # Uses: coverage[toml] >=7.5
 pytest-doctestplus ==1.7.1
 pytest-env ==1.6.0
 pytest-docker ==3.2.5
