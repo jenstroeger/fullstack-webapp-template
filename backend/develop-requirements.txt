@@ -14,7 +14,7 @@ pylint >=4.0.0,<4.1.0
 
 # Testing.
 coverage ==7.6.12; python_version<"3.14"  # https://github.com/pypi/warehouse/pull/17872#issuecomment-2845932281
-faker ==40.12.0
+faker ==40.19.1
 hypothesis >=6.0.0,<7.0.0
 pytest >=9.0.0,<10.0.0
 requests ==2.33.*
