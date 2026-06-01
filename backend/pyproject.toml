@@ -9,14 +9,15 @@ name = "template_jobs"
 requires-python = ">=3.13.0,<3.14.0"
 authors = [{name = "Jens Troeger", email = "jens.troeger@light-speed.de"}]
 maintainers = [{name = "Jens Troeger", email = "jens.troeger@light-speed.de"}]
-dynamic = ["version", "description"]
+dynamic = ["version"]
 license = {file = "LICENSE.md"}
 readme = "README.md"
+description = "An opinionated template of a full-stack web application."
 dependencies = [
     "dramatiq ==1.18.0",
     "dramatiq-pg ==0.12.0",
-    "sqlalchemy[postgresql-psycopg2binary] ==2.0.41",
-    "greenlet ==3.2.3",  # Remove with SQLA 2.1, see also https://github.com/sqlalchemy/sqlalchemy/issues/7714
+    "sqlalchemy[postgresql-psycopg2binary] ==2.0.48",
+    "greenlet ==3.3.2",  # Remove with SQLA 2.1, see also https://github.com/sqlalchemy/sqlalchemy/issues/7714
 ]
 keywords = []
 # https://pypi.org/classifiers/

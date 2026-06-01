@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/python/
-FROM python:3.13-alpine3.22@sha256:e5fa639e49b85986c4481e28faa2564b45aa8021413f31026c3856e5911618b1
+FROM python:3.13-alpine3.23@sha256:bb1f2fdb1065c85468775c9d680dcd344f6442a2d1181ef7916b60a623f11d40
 
 # Copy over the distribution files in Simple Repository (PEP 503) format.
 RUN mkdir -p /tmp/dist/simple-index/
@@ -10,4 +10,4 @@ COPY dist/template_jobs-*-requirements.txt /tmp/dist/requirements.txt
 RUN python -m pip install --extra-index-url file:///tmp/dist/simple-index/ --require-hashes --requirement /tmp/dist/requirements.txt
 
 # Entrypoint to the container starts up Dramatiq consumers.
-ENTRYPOINT dramatiq --processes ${DRAMATIQ_PROCESSES} --threads ${DRAMATIQ_THREADS} --verbose template_jobs.broker
+ENTRYPOINT ["dramatiq", "--processes", "${DRAMATIQ_PROCESSES}", "--threads", "${DRAMATIQ_THREADS}", "--verbose", "template_jobs.broker"]
