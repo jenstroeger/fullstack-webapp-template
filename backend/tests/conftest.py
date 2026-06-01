@@ -1,6 +1,6 @@
 """Base configurations for all tests."""
 
-# Copyright (c) 2025-2025
+# Copyright (c) 2025-2026
 # This code is licensed under MIT license, see LICENSE.md for details.
 
 import random

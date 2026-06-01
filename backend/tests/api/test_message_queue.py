@@ -1,6 +1,6 @@
 """Collection of tests to exercise the message queue.."""
 
-# Copyright (c) 2025-2025
+# Copyright (c) 2025-2026
 # This code is licensed under MIT license, see LICENSE.md for details.
 
 # flake8: noqa: D103
