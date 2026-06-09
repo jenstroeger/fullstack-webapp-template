@@ -14,7 +14,7 @@ license = {file = "LICENSE.md"}
 readme = "README.md"
 description = "An opinionated template of a full-stack web application."
 dependencies = [
-    "dramatiq ==1.18.0",
+    "dramatiq ==2.1.0",
     "dramatiq-pg ==0.12.0",
     "sqlalchemy[postgresql-psycopg2binary] ==2.0.48",
     "greenlet ==3.3.2",  # Remove with SQLA 2.1, see also https://github.com/sqlalchemy/sqlalchemy/issues/7714
