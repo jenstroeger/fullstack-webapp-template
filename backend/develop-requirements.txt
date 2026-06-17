@@ -7,7 +7,7 @@ cyclonedx-bom >=7.0.0,<8.0.0
 flit >=3.2.0,<4.0.0
 
 # Check the Python code.
-mypy >=1.0.0,<1.20.0
+mypy >=2.1.0,<2.2.0
 # perflint >=0.8.0,<1.0.0  # https://github.com/tonybaloney/perflint/issues/60
 pip-audit >=2.4.4,<3.0.0
 pylint >=4.0.0,<4.1.0
